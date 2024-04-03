@@ -5,8 +5,11 @@ Chat App Front-End. This is a university project for my Web Development classes
 # Run these commands before proceeding
 
 npm i axios
-npm i tailwind
+
 npm i react-router-dom
+
+npm install -d tailwindcss postcss autoprefixer --force
+npx tailwindcss init -p
 
 # Getting Started with Create React App
 
