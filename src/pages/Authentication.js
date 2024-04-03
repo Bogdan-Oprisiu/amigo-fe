@@ -18,7 +18,7 @@ const Authentication = () => {
                 <LogIn/>
             )}
             <button onClick={handleToggleForm}>
-                {isSignUp ? 'Already have an account? Log In' : 'Don\'t have an account? Sign Up'}
+                {isSignUp ? 'Log In' : 'Don\'t have an account? Sign Up'}
             </button>
         </div>
     );
