@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Authentication from './pages/Authentication';
-import {AuthContext, authReducer} from './context/auth_context/AuthProvider'
+import { AuthContext } from './context/auth_context/AuthProvider'
 import { useContext, useEffect } from 'react';
 
 function App() {

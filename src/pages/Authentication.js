@@ -9,16 +9,20 @@ const Authentication = () => {
         setIsSignUp(!isSignUp);
     };
 
+    function verifyData(username, password) {
+        if (username && password) {
+          return { username, password };
+        } else {
+          return null;
+        }
+      }
+
     return (
         <div>
             <h1>{isSignUp ? 'Sign Up' : 'Log In'}</h1>
-            {isSignUp ? (
-                <SignUp/>
-            ) : (
-                <LogIn/>
-            )}
+            {isSignUp ? (<SignUp verifyData={verifyData}/>) : (<LogIn verifyData={verifyData}/>)}
             <button onClick={handleToggleForm}>
-                {isSignUp ? 'Log In' : 'Don\'t have an account? Sign Up'}
+                {isSignUp ? 'Already have an account? Log In' : 'Don\'t have an account? Sign Up'}
             </button>
         </div>
     );
