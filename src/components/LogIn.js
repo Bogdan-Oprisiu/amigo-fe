@@ -12,7 +12,7 @@ const LogIn = ({verifyData}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Loggin in with:', { username, password });
+        // console.log('Loggin in with:', { username, password });
 
         const user = verifyData(username, password);
         if (user) {
@@ -23,6 +23,10 @@ const LogIn = ({verifyData}) => {
             console.log('Invalid data');
         }
     };
+
+    handleForgotPassword = () => {
+        // Add your logic here
+    }
 
     return (
         <form>
@@ -42,7 +46,15 @@ const LogIn = ({verifyData}) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
+            <button type="button" onClick={handleForgotPassword}>Forgot Password?</button>
             <button type="submit" onClick={handleSubmit}>Log In</button>
+
+            <div>
+                {showForgotPassword && <div className="mb-6">
+                    <p className="block text-gray-700 text-sm font-bold mb-2">Forgot your password?</p>
+                    {/* password recovery */}
+                </div>}
+            </div>
         </form>
     );
 };

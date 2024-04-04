@@ -13,7 +13,7 @@ const SignUp = ({verifyData}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Signing up with:', { username, email, password });
+        // console.log('Signing up with:', { username, email, password });
 
         const user = verifyData(username, password);
         if (user) {

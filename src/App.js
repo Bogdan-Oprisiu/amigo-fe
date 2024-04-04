@@ -3,6 +3,10 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Authentication from './pages/Authentication';
 import { AuthContext } from './context/auth_context/AuthProvider'
 import { useContext, useEffect } from 'react';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import NavBar from './nav_bar/NavigationBar.js';
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -20,8 +24,14 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" />
         <Route path="/Authentication" element={<Authentication />} />
+        {auth && auth.isAuthenticated && (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/Settings" element={<Settings />} />
+          </>
+        )}
       </Routes>
     </div>
   );
