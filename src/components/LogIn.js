@@ -24,9 +24,9 @@ const LogIn = ({verifyData}) => {
         }
     };
 
-    handleForgotPassword = () => {
-        // Add your logic here
-    }
+    // handleForgotPassword = () => {
+    //     // Add your logic here
+    // }
 
     return (
         <form>
@@ -46,11 +46,15 @@ const LogIn = ({verifyData}) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <button type="button" onClick={handleForgotPassword}>Forgot Password?</button>
+            <button type="button" 
+                // onClick={handleForgotPassword}
+                >
+                Forgot Password?</button>
             <button type="submit" onClick={handleSubmit}>Log In</button>
-
             <div>
-                {showForgotPassword && <div className="mb-6">
+                {
+                // showForgotPassword && 
+                <div className="mb-6">
                     <p className="block text-gray-700 text-sm font-bold mb-2">Forgot your password?</p>
                     {/* password recovery */}
                 </div>}

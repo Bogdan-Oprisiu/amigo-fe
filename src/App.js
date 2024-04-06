@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      {auth && auth.isAuthenticated && <NavBar /> }
       <Routes>
         <Route path="/Authentication" element={<Authentication />} />
         {auth && auth.isAuthenticated && (

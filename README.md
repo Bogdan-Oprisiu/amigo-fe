@@ -8,7 +8,7 @@ npm i axios
 
 npm i react-router-dom
 
-npm install -d tailwindcss postcss autoprefixer --force
+npm install -d tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
 # Getting Started with Create React App
