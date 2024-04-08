@@ -11,19 +11,19 @@ const Authentication = () => {
 
     function verifyData(username, password) {
         if (username && password) {
-          return { username, password };
+            return { username, password };
         } else {
-          return null;
+            return null;
         }
-      }
+    }
 
     return (
-        <div>
-            <h1>{isSignUp ? 'Sign Up' : 'Log In'}</h1>
-            {isSignUp ? (<SignUp verifyData={verifyData}/>) : (<LogIn verifyData={verifyData}/>)}
-            <button onClick={handleToggleForm}>
-                {isSignUp ? 'Already have an account? Log In' : 'Don\'t have an account? Sign Up'}
-            </button>
+        <div className="flex h-screen items-center justify-center bg-gradient-to-r from-blue-400 to-green-500">
+            {isSignUp ? (
+                <SignUp verifyData={verifyData}/>
+            ) : (
+                <LogIn verifyData={verifyData} handleToggleForm={handleToggleForm} />
+            )}
         </div>
     );
 };

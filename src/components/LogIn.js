@@ -1,66 +1,74 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from '../context/auth_context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-const LogIn = ({verifyData}) => {
+// Ensure props are correctly structured to receive both verifyData and handleToggleForm
+const LogIn = ({ verifyData, handleToggleForm }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const { dispatch } = useContext(AuthContext);
-
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log('Loggin in with:', { username, password });
 
         const user = verifyData(username, password);
         if (user) {
             dispatch({ type: 'LOGIN', payload: { user } });
             navigate('/');
         } else {
-            // Handle invalid data
             console.log('Invalid data');
         }
     };
 
-    // handleForgotPassword = () => {
-    //     // Add your logic here
-    // }
-
     return (
-        <form>
-            <div className="mb-4">
-                <p className="block text-gray-700 text-sm font-bold mb-2">Username</p>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                    type="text" 
-                    placeholder="Username" 
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div className="mb-6">
-                <p className="block text-gray-700 text-sm font-bold mb-2">Password</p>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
-                    type="password" 
-                    placeholder="******" 
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <button type="button" 
-                // onClick={handleForgotPassword}
-                >
-                Forgot Password?</button>
-            <button type="submit" onClick={handleSubmit}>Log In</button>
-            <div>
-                {
-                // showForgotPassword && 
-                <div className="mb-6">
-                    <p className="block text-gray-700 text-sm font-bold mb-2">Forgot your password?</p>
-                    {/* password recovery */}
-                </div>}
-            </div>
-        </form>
+        <div className="flex h-screen  items-center justify-center, mx-auto">
+            <form className="bg-white p-10 rounded-lg shadow-lg, mx-auto">
+                <h2 className="text-2xl font-bold mb-5 text-gray-800 text-center">Log In</h2>
+                <div className="mb-5">
+                    <label htmlFor="username" className="block mb-2 font-bold text-gray-500">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Username"
+                        className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline"
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="password" className="block mb-2 font-bold text-gray-500">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="******"
+                        className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col items-center">
+                    <button
+                        className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:shadow-outline mb-3"
+                        type="button"
+                        onClick={handleSubmit}>
+                        Log In
+                    </button>
+                    <a href="#"
+                       className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        Forgot Password?
+                    </a>
+                    <button
+                        onClick={handleToggleForm}
+                        className="mt-4 text-sm text-blue-500 hover:text-blue-700 font-semibold">
+                        Don't have an account? Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 
 export default LogIn;
+
+
+
