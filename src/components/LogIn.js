@@ -1,14 +1,13 @@
 import React, { useState, useContext } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Assuming you're using react-icons for eye icons
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; 
 
 import { AuthContext } from '../context/auth_context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-// Ensure props are correctly structured to receive both verifyData and handleToggleForm
 const LogIn = ({ verifyData, handleToggleForm }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showPassword, setShowPassword] = useState(false);
 
 
     const { dispatch } = useContext(AuthContext);
@@ -27,7 +26,7 @@ const LogIn = ({ verifyData, handleToggleForm }) => {
     };
 
     const toggleShowPassword = (e) => {
-        e.preventDefault(); // Prevent form submission or any default action
+        e.preventDefault();
         setShowPassword(!showPassword);
     };
 

@@ -1,16 +1,16 @@
 import React, {useState, useContext} from "react";
 import { AuthContext } from '../context/auth_context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { FiCheckCircle, FiXCircle } from 'react-icons/fi'; // Icons for visual feedback
+import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
 
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Importing eye icons for visibility toggle
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 
 const SignUp = ({verifyData, handleToggleForm}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showPassword, setShowPassword] = useState(false);
     const [passwordValidation, setPasswordValidation] = useState({
         minLength: false,
         digit: false,
@@ -19,12 +19,12 @@ const SignUp = ({verifyData, handleToggleForm}) => {
         specialChar: false,
         noSpaces: true, // Default to true since empty password does not contain spaces
     });
-    const [showPolicy, setShowPolicy] = useState(false); // New state to manage visibility of password policy hints
-    const [isBlurring, setIsBlurring] = useState(false); // New state to manage blur effect
+    const [showPolicy, setShowPolicy] = useState(false);
+    const [isBlurring, setIsBlurring] = useState(false);
     const [validationError, setValidationError] = useState('');
-    const [showToast, setShowToast] = useState(false); // Toast visibility state
+    const [showToast, setShowToast] = useState(false);
     const [showValidationError, setShowValidationError] = useState(false);
-    const [showToastFade, setShowToastFade] = useState(false); // New state to manage fade effect
+    const [showToastFade, setShowToastFade] = useState(false);
 
 
 
@@ -54,13 +54,13 @@ const SignUp = ({verifyData, handleToggleForm}) => {
 
     const handleShowToast = () => {
         setShowToast(true);
-        setShowToastFade(true); // Initiate showing with fade effect
+        setShowToastFade(true);
         setTimeout(() => {
-            setShowToastFade(false); // Start fade-out effect
-        }, 2500); // Start fading out before completely hiding to see the effect
+            setShowToastFade(false);
+        }, 2500);
         setTimeout(() => {
-            setShowToast(false); // Completely hide after fade-out
-        }, 3000); // Ensure this matches the duration of your fade-out transition
+            setShowToast(false);
+        }, 3000);
     };
 
 
@@ -69,12 +69,11 @@ const SignUp = ({verifyData, handleToggleForm}) => {
         const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
 
         if (!allCriteriaMet) {
-            handleShowToast(); // Use the new function to show the toast
+            handleShowToast();
             return;
         }
 
-        // Proceed with user creation if validation passes
-        // Reset the validation error states if criteria are met
+
         setShowValidationError(false);
         setShowToast(false);
         const user = verifyData(username, password);
@@ -116,20 +115,20 @@ const SignUp = ({verifyData, handleToggleForm}) => {
 
     const toggleShowPassword = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // Prevent the focus from shifting
+        e.stopPropagation();
         setShowPassword(!showPassword);
     };
 
     const handleFocus = () => {
         setShowPolicy(true);
-        setIsBlurring(false); // Reset blurring effect on focus
+        setIsBlurring(false);
     };
 
     const handleBlur = () => {
-        setIsBlurring(true); // Initiate blurring effect
+        setIsBlurring(true);
         setTimeout(() => {
-            setShowPolicy(false); // Hide the policy hints after the fade-out animation completes
-        }, 500); // Adjust timing to match the duration of your fade-out animation
+            setShowPolicy(false);
+        }, 500);
     };
 
 
@@ -166,8 +165,8 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                             placeholder="Password"
                             className="w-full rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none"
                             onChange={handlePasswordChange}
-                            onFocus={handleFocus} // Bind the onFocus event
-                            onBlur={handleBlur} // Bind the onBlur event
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
                         />
                         <button
                             onMouseDown={toggleShowPassword}
@@ -182,7 +181,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                         </div>
                     )}
 
-                    {/* Conditional rendering based on showPolicy state */}
                     {showPolicy && (
                         <div
                             className={`absolute right-[-320px] top-0 bg-white p-4 shadow-lg rounded-lg w-80 mt-2 z-10 transition-opacity duration-500 ${isBlurring ? 'opacity-0' : 'opacity-100'}`}>
@@ -216,12 +214,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                     Already have an account? Log In
                 </button>
 
-                {/*/!* Toast Notification *!/*/}
-                {/*{showValidationError && (*/}
-                {/*    <div style={toastStyle}>*/}
-                {/*        Password does not meet all requirements.*/}
-                {/*    </div>*/}
-                {/*)}*/}
 
             </form>
         </div>
