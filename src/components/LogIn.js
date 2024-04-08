@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Assuming you're using react-icons for eye icons
+
 import { AuthContext } from '../context/auth_context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const LogIn = ({ verifyData, handleToggleForm }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
 
     const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -22,6 +26,11 @@ const LogIn = ({ verifyData, handleToggleForm }) => {
         }
     };
 
+    const toggleShowPassword = (e) => {
+        e.preventDefault(); // Prevent form submission or any default action
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="flex h-screen  items-center justify-center, mx-auto">
             <form className="bg-white p-10 rounded-lg shadow-lg, mx-auto">
@@ -36,16 +45,24 @@ const LogIn = ({ verifyData, handleToggleForm }) => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className="mb-5">
+                <div className="mb-5 relative">
                     <label htmlFor="password" className="block mb-2 font-bold text-gray-500">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="******"
-                        className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="flex items-center border rounded-lg">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            placeholder="******"
+                            className="w-full rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button
+                            onMouseDown={toggleShowPassword}
+                            className="p-2 cursor-pointer focus:outline-none">
+                            {showPassword ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
+                        </button>
+                    </div>
                 </div>
+
                 <div className="flex flex-col items-center">
                     <button
                         className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:shadow-outline mb-3"
