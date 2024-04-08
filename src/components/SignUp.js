@@ -29,6 +29,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
 
 
 
+
     const policyDescriptions = {
         minLength: "at least 8 characters",
         digit: "at least one digit",
@@ -66,6 +67,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
 
         if (!allCriteriaMet) {
@@ -209,6 +211,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                 </button>
 
                 <button
+
                     onClick={handleToggleForm}
                     className="mt-4 text-sm text-green-500 hover:text-green-700 font-semibold">
                     Already have an account? Log In

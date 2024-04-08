@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; 
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import { AuthContext } from '../context/auth_context/AuthProvider';
 import { useNavigate } from 'react-router-dom';

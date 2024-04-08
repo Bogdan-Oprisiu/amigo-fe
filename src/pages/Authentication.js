@@ -8,6 +8,20 @@ const Authentication = () => {
     const handleToggleForm = () => {
         setIsSignUp(!isSignUp);
     };
+    // const handleToggleForm = () => {
+    //     // Temporarily disable form validation
+    //     const form = document.querySelector('form'); // Adjust the selector as needed
+    //     if (form) form.noValidate = true;
+    //
+    //     // Toggle form view
+    //     setIsSignUp(!isSignUp);
+    //
+    //     // Re-enable form validation after a short delay
+    //     setTimeout(() => {
+    //         if (form) form.noValidate = false;
+    //     }, 100);
+    // };
+
 
     function verifyData(username, password) {
         if (username && password) {
