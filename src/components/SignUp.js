@@ -21,6 +21,12 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     });
     const [showPolicy, setShowPolicy] = useState(false); // New state to manage visibility of password policy hints
     const [isBlurring, setIsBlurring] = useState(false); // New state to manage blur effect
+    const [validationError, setValidationError] = useState('');
+    const [showToast, setShowToast] = useState(false); // Toast visibility state
+    const [showValidationError, setShowValidationError] = useState(false);
+    const [showToastFade, setShowToastFade] = useState(false); // New state to manage fade effect
+
+
 
 
     const policyDescriptions = {
@@ -46,19 +52,55 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     };
 
 
+    const handleShowToast = () => {
+        setShowToast(true);
+        setShowToastFade(true); // Initiate showing with fade effect
+        setTimeout(() => {
+            setShowToastFade(false); // Start fade-out effect
+        }, 2500); // Start fading out before completely hiding to see the effect
+        setTimeout(() => {
+            setShowToast(false); // Completely hide after fade-out
+        }, 3000); // Ensure this matches the duration of your fade-out transition
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log('Signing up with:', { username, email, password });
+        const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
 
+        if (!allCriteriaMet) {
+            handleShowToast(); // Use the new function to show the toast
+            return;
+        }
+
+        // Proceed with user creation if validation passes
+        // Reset the validation error states if criteria are met
+        setShowValidationError(false);
+        setShowToast(false);
         const user = verifyData(username, password);
         if (user) {
-            dispatch({ type: 'SIGN UP', payload: { user: { ...user, email } } });
+            dispatch({ type: 'SIGN_UP', payload: { user: { ...user, email } } });
             navigate('/');
         } else {
-            // Handle invalid data
             console.log('Invalid data');
         }
     };
+
+    const toastStyle = {
+        position: "absolute",
+        bottom: "20px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "rgba(220, 38, 38, 0.85)",
+        color: "white",
+        padding: "8px 16px",
+        borderRadius: "8px",
+        visibility: showToast ? "visible" : "hidden",
+        opacity: showToastFade ? 1 : 0,
+        transition: "opacity 0.5s, visibility 0.5s ease 0.5s",
+    };
+
+
 
     const validatePassword = (password) => {
         return {
@@ -134,9 +176,16 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                         </button>
                     </div>
 
+                    {showToast && (
+                        <div style={toastStyle}>
+                            Password does not meet all requirements.
+                        </div>
+                    )}
+
                     {/* Conditional rendering based on showPolicy state */}
                     {showPolicy && (
-                        <div className={`absolute right-[-320px] top-0 bg-white p-4 shadow-lg rounded-lg w-80 mt-2 z-10 transition-opacity duration-500 ${isBlurring ? 'opacity-0' : 'opacity-100'}`}>
+                        <div
+                            className={`absolute right-[-320px] top-0 bg-white p-4 shadow-lg rounded-lg w-80 mt-2 z-10 transition-opacity duration-500 ${isBlurring ? 'opacity-0' : 'opacity-100'}`}>
                             <p className="font-semibold mb-2">Password must include:</p>
                             <ul className="list-disc pl-5 space-y-1">
                                 {Object.entries(passwordValidation).map(([key, isValid]) => (
@@ -149,7 +198,11 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                             </ul>
                         </div>
                     )}
+
+
                 </div>
+
+
                 <button
                     className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 focus:outline-none focus:shadow-outline"
                     type="button"
@@ -162,6 +215,13 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                     className="mt-4 text-sm text-green-500 hover:text-green-700 font-semibold">
                     Already have an account? Log In
                 </button>
+
+                {/*/!* Toast Notification *!/*/}
+                {/*{showValidationError && (*/}
+                {/*    <div style={toastStyle}>*/}
+                {/*        Password does not meet all requirements.*/}
+                {/*    </div>*/}
+                {/*)}*/}
 
             </form>
         </div>
