@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Message from './Message';
 
 function MessageBox() {
@@ -6,6 +6,24 @@ function MessageBox() {
     const [messages, setMessages] = useState([]);
     // State to hold the current message being typed
     const [message, setMessage] = useState('');
+
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            const parentHeight = containerRef.current.parentElement.clientHeight;
+            const calculatedHeight = parentHeight * 0.84;
+            containerRef.current.style.maxHeight = `${calculatedHeight}px`;
+        }
+        scrollToBottom();
+    }, [messages]);
+
+    // Function to scroll to the bottom of the message container
+    const scrollToBottom = () => {
+        if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+    };
 
     // Function to add a new message and its response
     const addMessage = (messageContent, sender) => {
@@ -41,25 +59,32 @@ function MessageBox() {
     };
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="overflow-y-auto flex-grow">
-                {messages.map((message, index) => (
-                    <Message key={index} content={message.content} sender={message.sender}/>
-                ))}
-            </div>
-            <div className="flex items-center border-t border-gray-300">
-                <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type a message"
-                    className="flex-grow p-2 resize-none focus:outline-none"
-                />
-                <button
-                    onClick={handleSendMessage}
-                    className="px-4 py-2 bg-blue-500 text-black font-semibold hover:bg-blue-600 focus:outline-none"
-                >
-                    Send
-                </button>
+        <div className="flex justify-center items-center h-full">
+            <div className="max-w-xs min-h-[60%] bg-gray-200 rounded-lg shadow-lg flex flex-col justify-between">
+                <div ref={containerRef} className="overflow-y-auto p-2 flex-grow">
+                    {messages.map((message, index) => (
+                        <div key={index}
+                             className={`flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
+                            <Message content={message.content} sender={message.sender}/>
+                        </div>
+                    ))}
+                </div>
+                <div className="border-t border-gray-300 p-2 flex items-center justify-end mt-auto">
+                    <div className="flex-grow overflow-hidden mr-2">
+                    <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Type a message"
+                        className="w-full p-2 resize-none focus:outline-none rounded-lg border-2 border-gray-300"
+                    />
+                    </div>
+                    <button
+                        onClick={handleSendMessage}
+                        className="px-4 py-2 bg-blue-500 text-black font-semibold hover:bg-blue-600 focus:outline-none rounded-lg"
+                    >
+                        Send
+                    </button>
+                </div>
             </div>
         </div>
     );
