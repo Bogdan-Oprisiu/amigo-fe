@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Message from './Message';
+import axios from 'axios';
+
 
 function MessageBox() {
     // State to hold messages
@@ -27,21 +29,46 @@ function MessageBox() {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     };
+    
 
-    // Function to add a new message and its response
-    const addMessage = (messageContent, sender) => {
+    const addMessage = async (messageContent, sender) => {
+        // Add user message to state first
         setMessages(prevMessages => [
             ...prevMessages,
             { content: messageContent, sender }
         ]);
 
-        // Simple response mechanism, modify as needed
-        const response = generateResponse(messageContent);
-        setMessages(prevMessages => [
-            ...prevMessages,
-            { content: response, sender: "ChatBot" }
-        ]);
+        // Prepare the payload in the expected format
+        const payload = JSON.stringify({
+            input_string: messageContent
+        });
+
+        // Specify the necessary headers
+        const config = {
+            headers: {
+                'Content-Type': 'application/json', // Indicate we're sending JSON data
+                'Accept': 'application/json', // Specify what we expect in return
+            }
+        };
+
+        // Send the message to the backend and wait for the response
+        try {
+            const response = await axios.post('https://localhost:8443/api/send-message', payload, config);
+            const botResponse = response.data.response;
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { content: botResponse, sender: "ChatBot" }
+            ]);
+        } catch (error) {
+            console.error('Error sending message to bot:', error);
+            // Provide feedback in case of an error
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { content: "Sorry, I can't respond at the moment.", sender: "ChatBot" }
+            ]);
+        }
     };
+
 
     // Function to generate a response based on user's message
     const generateResponse = (messageContent) => {
@@ -57,7 +84,7 @@ function MessageBox() {
 
     // Function to handle sending message
     const handleSendMessage = () => {
-        addMessage(message, "You");
+        addMessage(message, "You").then(r => console.log('Message sent!'));
         setMessage(''); // Clear the message input after sending
     };
 
