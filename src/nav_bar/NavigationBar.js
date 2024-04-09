@@ -12,11 +12,15 @@ function NavBar() {
     };
 
     return (
-        <nav>
-            <button onClick={handleLogOut}>Log Out</button>
-            <button onClick={() => navigate('/')}>Home</button>
-            <button onClick={() => navigate('/Settings')}>Settings</button>
-            <button onClick={() => navigate('/Profile')}>Profile</button>
+        <nav className="bg-blue-500 p-4 flex justify-between items-center">
+            <div className="flex items-center">
+                <div className="flex items-center space-x-4">
+                    <button className="text-white font-semibold" onClick={() => navigate('/')}>Amigo</button>
+                    <button className="text-white font-semibold" onClick={() => navigate('/Settings')}>Settings</button>
+                    <button className="text-white font-semibold" onClick={() => navigate('/Profile')}>Profile</button>
+                </div>
+            </div>
+            <button className="text-white font-semibold" onClick={handleLogOut}>Log Out</button>
         </nav>
     );
 }

@@ -1,9 +1,14 @@
 import React from 'react';
+import MessageBox from '../components/MessageBox';
+import NavBar from "../nav_bar/NavigationBar";
 
 function Home() {
     return (
-        <div>
-            <h1>Welcome to the Home Page!</h1>
+        <div className="flex flex-col h-screen justify-between bg-blue-300">
+            <NavBar />
+            <div className="flex-grow">
+                <MessageBox />
+            </div>
         </div>
     );
 }

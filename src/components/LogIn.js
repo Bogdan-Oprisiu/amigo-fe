@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FiAlertCircle } from 'react-icons/fi'; // Import alert icon for the toast
 
 import { AuthContext } from '../context/auth_context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LogIn = ({ handleToggleForm }) => {
     const [username, setUsername] = useState('');
@@ -31,14 +31,6 @@ const LogIn = ({ handleToggleForm }) => {
 
     const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
-
-    // const handleShowToast = (message) => {
-    //     setToastMessage(message);
-    //     setShowToast(true);
-    //     setTimeout(() => {
-    //         setShowToast(false);
-    //     }, 5000);
-    // };
 
     const handleShowToast = (message) => {
         setToastMessage(message);
@@ -85,7 +77,7 @@ const LogIn = ({ handleToggleForm }) => {
 
     return (
         <div className="flex h-screen items-center justify-center">
-            <div className="relative mx-auto"> {/* Wrap the form and the toast notification in a div */}
+            <div className="relative mx-auto">
                 <form className="bg-white p-10 rounded-lg shadow-lg">
                     <h2 className="text-2xl font-bold mb-5 text-gray-800 text-center">Log In</h2>
                     <div className="mb-5">
@@ -124,16 +116,18 @@ const LogIn = ({ handleToggleForm }) => {
                             onClick={handleSubmit}>
                             Log In
                         </button>
-                        <a href="#"
-                           className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                            Forgot Password?
-                        </a>
+                    <Link 
+                        to="/ForgotPassword"
+                        className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        Forgot Password?
+                    </Link>
                         <button
                             onClick={handleToggleForm}
                             className="mt-4 text-sm text-blue-500 hover:text-blue-700 font-semibold">
                             Don't have an account? Sign Up
                         </button>
                     </div>
+
                 </form>
                 {showToast && (
                     <div style={toastStyle}>
