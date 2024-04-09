@@ -11,9 +11,12 @@ function MessageBox() {
 
     useEffect(() => {
         if (containerRef.current) {
-            const parentHeight = containerRef.current.parentElement.clientHeight;
-            const calculatedHeight = parentHeight * 0.86; // Adjust this value as needed
-            containerRef.current.style.maxHeight = `${calculatedHeight}px`;
+            const parentWidth = window.innerWidth;
+            const parentHeight = window.innerHeight;
+            const calculatedWidth = parentWidth * 0.8;
+            const calculatedHeight = parentHeight * 0.8;
+            containerRef.current.style.width = `${calculatedWidth}px`;
+            containerRef.current.style.height = `${calculatedHeight}px`;
         }
         scrollToBottom();
     }, [messages]);
@@ -60,34 +63,38 @@ function MessageBox() {
 
     return (
         <div className="flex justify-center items-center h-full">
-            <div className="max-w-xs md:max-w-xl lg:max-w-3xl bg-gray-200 rounded-lg shadow-lg flex flex-col h-full">
-                <div ref={containerRef} className="overflow-y-auto p-2 flex-grow">
-                    {messages.map((message, index) => (
-                        <div key={index} className={`flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
-                            <Message content={message.content} sender={message.sender} />
-                        </div>
-                    ))}
-                    {messages.length === 0 && (
-                        <div className="flex justify-center items-center flex-grow">
-                            <p className="text-gray-500">No messages yet.</p>
-                        </div>
-                    )}
-                </div>
-                <div className="border-t border-gray-300 p-2 flex items-center justify-end">
-                    <div className="flex-grow overflow-hidden mr-2">
-                        <textarea
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Type a message"
-                            className="w-full p-2 resize-none focus:outline-none rounded-lg border-2 border-gray-300"
-                        />
+            <div>
+                <p className="bg-gray-300 rounded-t-lg px-4 py-2">Amigo</p>
+                <div className="bg-gray-200 shadow-lg">
+                    <div ref={containerRef} className="overflow-auto p-2">
+                        {messages.map((message, index) => (
+                            <div key={index}
+                                 className={`flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
+                                <Message content={message.content} sender={message.sender}/>
+                            </div>
+                        ))}
+                        {messages.length === 0 && (
+                            <div className="flex justify-center items-center flex-grow">
+                                <p className="text-gray-500">No messages yet.</p>
+                            </div>
+                        )}
                     </div>
-                    <button
-                        onClick={handleSendMessage}
-                        className="px-4 py-2 bg-blue-500 text-black font-semibold hover:bg-blue-600 focus:outline-none rounded-lg"
-                    >
-                        Send
-                    </button>
+                    <div className="border-t border-gray-300 p-2 flex items-center justify-end">
+                        <div className="flex-grow overflow-hidden mr-2">
+                    <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Type a message"
+                        className="w-full p-2 resize-none focus:outline-none rounded-lg border-2 border-gray-300"
+                    />
+                        </div>
+                        <button
+                            onClick={handleSendMessage}
+                            className="px-4 py-2 bg-blue-500 text-white font-semibold hover:bg-blue-600 focus:outline-none rounded-lg"
+                        >
+                            Send
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

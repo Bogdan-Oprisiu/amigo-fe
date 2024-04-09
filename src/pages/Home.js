@@ -4,7 +4,7 @@ import NavBar from "../nav_bar/NavigationBar";
 
 function Home() {
     return (
-        <div className="flex flex-col h-screen justify-between">
+        <div className="flex flex-col h-screen justify-between bg-blue-300">
             <NavBar />
             <div className="flex-grow">
                 <MessageBox />
