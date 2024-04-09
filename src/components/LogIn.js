@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import { AuthContext } from '../context/auth_context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LogIn = ({ verifyData, handleToggleForm }) => {
     const [username, setUsername] = useState('');
@@ -69,10 +69,11 @@ const LogIn = ({ verifyData, handleToggleForm }) => {
                         onClick={handleSubmit}>
                         Log In
                     </button>
-                    <a href="#"
-                       className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                    <Link // Replace <a> tag with Link component
+                        to="/ForgotPassword" // Specify the path to the ForgotPassword page
+                        className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                         Forgot Password?
-                    </a>
+                    </Link>
                     <button
                         onClick={handleToggleForm}
                         className="mt-4 text-sm text-blue-500 hover:text-blue-700 font-semibold">
