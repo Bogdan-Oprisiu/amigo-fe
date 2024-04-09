@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Message from './Message';
 
 function MessageBox() {
@@ -12,7 +12,7 @@ function MessageBox() {
     useEffect(() => {
         if (containerRef.current) {
             const parentHeight = containerRef.current.parentElement.clientHeight;
-            const calculatedHeight = parentHeight * 0.84;
+            const calculatedHeight = parentHeight * 0.86; // Adjust this value as needed
             containerRef.current.style.maxHeight = `${calculatedHeight}px`;
         }
         scrollToBottom();
@@ -29,14 +29,14 @@ function MessageBox() {
     const addMessage = (messageContent, sender) => {
         setMessages(prevMessages => [
             ...prevMessages,
-            {content: messageContent, sender}
+            { content: messageContent, sender }
         ]);
 
         // Simple response mechanism, modify as needed
         const response = generateResponse(messageContent);
         setMessages(prevMessages => [
             ...prevMessages,
-            {content: response, sender: "ChatBot"}
+            { content: response, sender: "ChatBot" }
         ]);
     };
 
@@ -60,23 +60,27 @@ function MessageBox() {
 
     return (
         <div className="flex justify-center items-center h-full">
-            <div className="max-w-xs min-h-[60%] bg-gray-200 rounded-lg shadow-lg flex flex-col justify-between">
+            <div className="max-w-xs md:max-w-xl lg:max-w-3xl bg-gray-200 rounded-lg shadow-lg flex flex-col h-full">
                 <div ref={containerRef} className="overflow-y-auto p-2 flex-grow">
                     {messages.map((message, index) => (
-                        <div key={index}
-                             className={`flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
-                            <Message content={message.content} sender={message.sender}/>
+                        <div key={index} className={`flex ${message.sender === "You" ? "justify-end" : "justify-start"}`}>
+                            <Message content={message.content} sender={message.sender} />
                         </div>
                     ))}
+                    {messages.length === 0 && (
+                        <div className="flex justify-center items-center flex-grow">
+                            <p className="text-gray-500">No messages yet.</p>
+                        </div>
+                    )}
                 </div>
-                <div className="border-t border-gray-300 p-2 flex items-center justify-end mt-auto">
+                <div className="border-t border-gray-300 p-2 flex items-center justify-end">
                     <div className="flex-grow overflow-hidden mr-2">
-                    <textarea
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Type a message"
-                        className="w-full p-2 resize-none focus:outline-none rounded-lg border-2 border-gray-300"
-                    />
+                        <textarea
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder="Type a message"
+                            className="w-full p-2 resize-none focus:outline-none rounded-lg border-2 border-gray-300"
+                        />
                     </div>
                     <button
                         onClick={handleSendMessage}
