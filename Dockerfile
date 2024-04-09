@@ -9,6 +9,11 @@ RUN npm run build
 # Set up Nginx to serve the built application
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
+COPY amigo.crt /etc/nginx/amigo.crt
+COPY amigo.key /etc/nginx/amigo.key
+
+# Replace default.conf with your configuration that includes SSL settings
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+
+EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
