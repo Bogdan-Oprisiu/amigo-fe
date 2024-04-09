@@ -17,7 +17,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
         lowercase: false,
         uppercase: false,
         specialChar: false,
-        noSpaces: true, // Default to true since empty password does not contain spaces
+        noSpaces: true,
     });
     const [showPolicy, setShowPolicy] = useState(false);
     const [isBlurring, setIsBlurring] = useState(false);
@@ -25,6 +25,8 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     const [showToast, setShowToast] = useState(false);
     const [showValidationError, setShowValidationError] = useState(false);
     const [showToastFade, setShowToastFade] = useState(false);
+    const [role, setRole] = useState('USER'); // New state for role selection
+
 
 
 
@@ -65,27 +67,83 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     };
 
 
-    const handleSubmit = (e) => {
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //
+    //     const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
+    //
+    //     if (!allCriteriaMet) {
+    //         handleShowToast();
+    //         return;
+    //     }
+    //
+    //
+    //     setShowValidationError(false);
+    //     setShowToast(false);
+    //     const user = verifyData(username, password);
+    //     if (user) {
+    //         dispatch({ type: 'SIGN_UP', payload: { user: { ...user, email } } });
+    //         navigate('/');
+    //     } else {
+    //         console.log('Invalid data');
+    //     }
+    // };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
 
         if (!allCriteriaMet) {
             handleShowToast();
+            setShowValidationError(true);
+            setTimeout(() => setShowValidationError(false), 5000);
             return;
         }
 
+        try {
 
-        setShowValidationError(false);
-        setShowToast(false);
-        const user = verifyData(username, password);
-        if (user) {
-            dispatch({ type: 'SIGN_UP', payload: { user: { ...user, email } } });
-            navigate('/');
-        } else {
-            console.log('Invalid data');
+            const signupResponse = await fetch('http://localhost:8080/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    login: username,
+                    email,
+                    password,
+                    role,
+                }),
+            });
+
+            if (signupResponse.ok) {
+                const loginResponse = await fetch('http://localhost:8080/api/auth/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ login: username, password }),
+                });
+
+                if (loginResponse.ok) {
+                    const data = await loginResponse.json();
+                    dispatch({ type: 'LOGIN', payload: { user: data.user, token: data.token } });
+                    navigate('/');
+                } else {
+                    throw new Error('Login failed after signup');
+                }
+            } else {
+                throw new Error(await signupResponse.text());
+            }
+        } catch (error) {
+            console.error('Signup/Login error:', error);
+            handleShowToast();
+            setShowValidationError(true);
+            setTimeout(() => setShowValidationError(false), 5000);
         }
     };
+
+
 
     const toastStyle = {
         position: "absolute",
@@ -198,6 +256,18 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                             </ul>
                         </div>
                     )}
+
+                    <div className="mb-5">
+                        <label htmlFor="role" className="block mb-2 font-bold text-gray-500">Role</label>
+                        <select
+                            id="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline">
+                            <option value="USER">User</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
 
 
                 </div>
