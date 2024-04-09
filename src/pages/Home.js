@@ -1,9 +1,12 @@
 import React from 'react';
+import MessageBox from '../components/MessageBox';
 
 function Home() {
     return (
-        <div>
-            <h1>Welcome to the Home Page!</h1>
+        <div className="flex flex-col h-screen justify-between">
+            <div className="overflow-y-auto flex-grow">
+                <MessageBox />
+            </div>
         </div>
     );
 }
