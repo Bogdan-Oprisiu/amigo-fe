@@ -103,7 +103,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
 
         try {
 
-            const signupResponse = await fetch('http://localhost:8080/api/auth/signup', {
+            const signupResponse = await fetch('https://localhost:8443/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const SignUp = ({verifyData, handleToggleForm}) => {
             });
 
             if (signupResponse.ok) {
-                const loginResponse = await fetch('http://localhost:8080/api/auth/signin', {
+                const loginResponse = await fetch('https://localhost:8443/api/auth/signin', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
