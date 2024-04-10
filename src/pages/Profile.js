@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import NavBar from "../nav_bar/NavigationBar";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Profile = () => {
     const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ const Profile = () => {
 
     return (
         <div>
-            <NavBar />
+            <NavBar/>
             <div className="flex h-screen items-center justify-center bg-gradient-to-r from-blue-400 to-green-500">
 
                 <div className="bg-white p-10 rounded-lg shadow-lg">
@@ -57,7 +57,8 @@ const Profile = () => {
                         />
                     </div>
                     <div className="mb-5">
-                        <label htmlFor="profilePicture" className="block mb-2 font-bold text-gray-800">Profile Picture</label>
+                        <label htmlFor="profilePicture" className="block mb-2 font-bold text-gray-800">Profile
+                            Picture</label>
                         <input
                             type="file"
                             id="profilePicture"

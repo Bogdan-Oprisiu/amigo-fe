@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Message from './Message';
 import axios from 'axios';
 
@@ -29,13 +29,13 @@ function MessageBox() {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     };
-    
+
 
     const addMessage = async (messageContent, sender) => {
         // Add user message to state first
         setMessages(prevMessages => [
             ...prevMessages,
-            { content: messageContent, sender }
+            {content: messageContent, sender}
         ]);
 
         // Prepare the payload in the expected format
@@ -57,14 +57,14 @@ function MessageBox() {
             const botResponse = response.data.response;
             setMessages(prevMessages => [
                 ...prevMessages,
-                { content: botResponse, sender: "ChatBot" }
+                {content: botResponse, sender: "ChatBot"}
             ]);
         } catch (error) {
             console.error('Error sending message to bot:', error);
             // Provide feedback in case of an error
             setMessages(prevMessages => [
                 ...prevMessages,
-                { content: "Sorry, I can't respond at the moment.", sender: "ChatBot" }
+                {content: "Sorry, I can't respond at the moment.", sender: "ChatBot"}
             ]);
         }
     };

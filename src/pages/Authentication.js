@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import LogIn from '../components/LogIn';
 import SignUp from '../components/SignUp';
 
@@ -11,7 +11,7 @@ const Authentication = () => {
 
     function verifyData(username, password) {
         if (username && password) {
-            return { username, password };
+            return {username, password};
         } else {
             return null;
         }
@@ -22,7 +22,7 @@ const Authentication = () => {
             {isSignUp ? (
                 <SignUp verifyData={verifyData}/>
             ) : (
-                <LogIn verifyData={verifyData} handleToggleForm={handleToggleForm} />
+                <LogIn verifyData={verifyData} handleToggleForm={handleToggleForm}/>
             )}
         </div>
     );

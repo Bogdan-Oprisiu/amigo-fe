@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { AuthContext } from '../context/auth_context/AuthProvider';
+import {AuthContext} from '../context/auth_context/AuthProvider';
 
 function NavBar() {
     const navigate = useNavigate();
-    const { dispatch, auth } = useContext(AuthContext);
+    const {dispatch, auth} = useContext(AuthContext);
 
     const handleLogOut = () => {
-        dispatch({ type: 'LOGOUT', payload: {} });
+        dispatch({type: 'LOGOUT', payload: {}});
         navigate('/Authentication');
     };
 

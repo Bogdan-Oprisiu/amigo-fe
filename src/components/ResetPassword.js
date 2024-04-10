@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
-    const { search } = useLocation();
+    const {search} = useLocation();
 
     useEffect(() => {
         const params = new URLSearchParams(search);

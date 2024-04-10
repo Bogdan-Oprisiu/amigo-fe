@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { FiAlertCircle } from 'react-icons/fi'; // Import alert icon for the toast
+import React, {useContext, useState} from "react";
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+import {FiAlertCircle} from 'react-icons/fi'; // Import alert icon for the toast
+import {AuthContext} from '../context/auth_context/AuthProvider';
+import {Link, useNavigate} from 'react-router-dom';
 
-import { AuthContext } from '../context/auth_context/AuthProvider';
-import { Link, useNavigate } from 'react-router-dom';
-
-const LogIn = ({ handleToggleForm }) => {
+const LogIn = ({handleToggleForm}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +28,7 @@ const LogIn = ({ handleToggleForm }) => {
         transition: "opacity 0.5s, visibility 0.5s ease 0.5s",
     };
 
-    const { dispatch } = useContext(AuthContext);
+    const {dispatch} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleShowToast = (message) => {
@@ -53,12 +52,12 @@ const LogIn = ({ handleToggleForm }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ login: username, password }),
+                body: JSON.stringify({login: username, password}),
             });
 
             if (response.ok) {
-                const { token, user } = await response.json();
-                dispatch({ type: 'LOGIN', payload: { user, token } });
+                const {token, user} = await response.json();
+                dispatch({type: 'LOGIN', payload: {user, token}});
                 navigate('/');
             } else {
                 handleShowToast('Invalid username or password.'); // Show error toast
@@ -106,7 +105,7 @@ const LogIn = ({ handleToggleForm }) => {
                                 onMouseDown={toggleShowPassword}
                                 onMouseUp={(e) => e.preventDefault()} // Prevents focus state after clicking
                                 className="p-2 cursor-pointer focus:outline-none">
-                                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                {showPassword ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
                             </button>
                         </div>
                     </div>
@@ -116,11 +115,11 @@ const LogIn = ({ handleToggleForm }) => {
                             onClick={handleSubmit}>
                             Log In
                         </button>
-                    <Link 
-                        to="/ForgotPassword"
-                        className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                        Forgot Password?
-                    </Link>
+                        <Link
+                            to="/ForgotPassword"
+                            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                            Forgot Password?
+                        </Link>
                         <button
                             onClick={handleToggleForm}
                             className="mt-4 text-sm text-blue-500 hover:text-blue-700 font-semibold">
@@ -131,7 +130,7 @@ const LogIn = ({ handleToggleForm }) => {
                 </form>
                 {showToast && (
                     <div style={toastStyle}>
-                        <FiAlertCircle className="mr-2" />
+                        <FiAlertCircle className="mr-2"/>
                         {toastMessage}
                     </div>
                 )}

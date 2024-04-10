@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import React, {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom'; // Import Link
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -50,7 +50,8 @@ const ForgotPassword = () => {
                     </>
                 ) : (
                     <div className="text-center">
-                        <p className="text-gray-700 mb-3">An email with instructions to reset your password has been sent to {email}.</p>
+                        <p className="text-gray-700 mb-3">An email with instructions to reset your password has been
+                            sent to {email}.</p>
                         {/* Use a Link component to navigate to the authentication page */}
                         <Link
                             to="/authentication"

@@ -1,9 +1,9 @@
-import React, {useState, useContext} from "react";
-import { AuthContext } from '../context/auth_context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
-import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
+import React, {useContext, useState} from "react";
+import {AuthContext} from '../context/auth_context/AuthProvider';
+import {useNavigate} from 'react-router-dom';
+import {FiCheckCircle, FiXCircle} from 'react-icons/fi';
 
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
 
 
 const SignUp = ({verifyData, handleToggleForm}) => {
@@ -28,10 +28,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     const [role, setRole] = useState('USER'); // New state for role selection
 
 
-
-
-
-
     const policyDescriptions = {
         minLength: "at least 8 characters",
         digit: "at least one digit",
@@ -42,14 +38,12 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     };
 
 
-
-
-    const { dispatch } = useContext(AuthContext);
+    const {dispatch} = useContext(AuthContext);
 
     const navigate = useNavigate();
 
     const handlePasswordChange = (e) => {
-        const { value } = e.target;
+        const {value} = e.target;
         setPassword(value);
         setPasswordValidation(validatePassword(value));
     };
@@ -122,12 +116,12 @@ const SignUp = ({verifyData, handleToggleForm}) => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ login: username, password }),
+                    body: JSON.stringify({login: username, password}),
                 });
 
                 if (loginResponse.ok) {
                     const data = await loginResponse.json();
-                    dispatch({ type: 'LOGIN', payload: { user: data.user, token: data.token } });
+                    dispatch({type: 'LOGIN', payload: {user: data.user, token: data.token}});
                     navigate('/');
                 } else {
                     throw new Error('Login failed after signup');
@@ -144,7 +138,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     };
 
 
-
     const toastStyle = {
         position: "absolute",
         bottom: "20px",
@@ -158,7 +151,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
         opacity: showToastFade ? 1 : 0,
         transition: "opacity 0.5s, visibility 0.5s ease 0.5s",
     };
-
 
 
     const validatePassword = (password) => {
