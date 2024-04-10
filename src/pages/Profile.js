@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import NavBar from "../nav_bar/NavigationBar";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
+    const [profilePicture, setProfilePicture] = useState(null);
 
     const handleChangeEmail = (e) => {
         setEmail(e.target.value);
@@ -14,16 +15,21 @@ const Profile = () => {
         setUsername(e.target.value);
     };
 
+    const handleProfilePictureChange = (e) => {
+        setProfilePicture(e.target.files[0]);
+    };
+
     const handleUpdateProfile = () => {
         // Here you can implement the logic to update the user's profile
-        // For example, you can send a request to your backend API to update the email and username
+        // For example, you can send a request to your backend API to update the email, username, and profile picture
         console.log("Updated email:", email);
         console.log("Updated username:", username);
+        console.log("Updated profile picture:", profilePicture);
     };
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <div className="flex h-screen items-center justify-center bg-gradient-to-r from-blue-400 to-green-500">
 
                 <div className="bg-white p-10 rounded-lg shadow-lg">
@@ -47,6 +53,16 @@ const Profile = () => {
                             placeholder="Enter your new username"
                             value={username}
                             onChange={handleChangeUsername}
+                            className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline"
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="profilePicture" className="block mb-2 font-bold text-gray-800">Profile Picture</label>
+                        <input
+                            type="file"
+                            id="profilePicture"
+                            accept="image/*"
+                            onChange={handleProfilePictureChange}
                             className="w-full border rounded-lg px-3 py-2 mt-1 text-gray-700 focus:outline-none focus:shadow-outline"
                         />
                     </div>
