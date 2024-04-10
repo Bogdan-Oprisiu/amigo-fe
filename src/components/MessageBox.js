@@ -16,7 +16,7 @@ function MessageBox() {
             const parentWidth = window.innerWidth;
             const parentHeight = window.innerHeight;
             const calculatedWidth = parentWidth * 0.8;
-            const calculatedHeight = parentHeight * 0.8;
+            const calculatedHeight = parentHeight * 0.7;
             containerRef.current.style.width = `${calculatedWidth}px`;
             containerRef.current.style.height = `${calculatedHeight}px`;
         }
@@ -89,7 +89,7 @@ function MessageBox() {
     };
 
     return (
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center h-auto">
             <div>
                 <p className="bg-gray-300 rounded-t-lg px-4 py-2">Amigo</p>
                 <div className="bg-gray-200 shadow-lg">

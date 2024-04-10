@@ -6,7 +6,7 @@ function Home() {
     return (
         <div className="flex flex-col h-screen justify-between bg-blue-300">
             <NavBar />
-            <div className="flex-grow">
+            <div className="flex-grow bg-blue-300">
                 <MessageBox />
             </div>
         </div>
