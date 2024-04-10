@@ -14,6 +14,7 @@ const LogIn = ({handleToggleForm}) => {
     const [showToastFade, setShowToastFade] = useState(false);
 
 
+
     const toastStyle = {
         position: "absolute",
         bottom: "20px",
@@ -57,6 +58,8 @@ const LogIn = ({handleToggleForm}) => {
 
             if (response.ok) {
                 const {token, user} = await response.json();
+                console.log("Received token:", token);
+                console.log("Login response user data:", user); // Debugging line
                 dispatch({type: 'LOGIN', payload: {user, token}});
                 navigate('/');
             } else {

@@ -1,30 +1,57 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import NavBar from "../nav_bar/NavigationBar"; // Import Link
+import React, { useState, useContext } from 'react';
+import NavBar from "../nav_bar/NavigationBar";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../context/auth_context/AuthProvider'; // Adjust the path as necessary
 
 const Settings = () => {
+    const { auth } = useContext(AuthContext); // Destructure auth to access the token
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
 
-    const handleChangeEmail = (e) => {
-        setEmail(e.target.value);
-    };
+    const handleChangeEmail = (e) => setEmail(e.target.value);
+    const handleChangeUsername = (e) => setUsername(e.target.value);
+    const handleProfilePictureChange = (e) => setProfilePicture(e.target.files[0]);
 
-    const handleChangeUsername = (e) => {
-        setUsername(e.target.value);
-    };
+    const handleUpdateProfile = async () => {
+        try {
+            if (!auth.user || !auth.user.id) {
+                console.error("User ID is undefined.");
+                return;
+            }
+            // Assuming you have the user's ID stored somewhere, like in the auth context
+            const userId = auth.user.id; // Adjust according to where you store the user ID
 
-    const handleProfilePictureChange = (e) => {
-        setProfilePicture(e.target.files[0]);
-    };
+            // Update email
+            if (email) {
+                await axios.post(`https://localhost:8443/api/user/update-email/${userId}`, { email }, {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`,
+                    },
+                }).catch(error => {
+                    console.error("Error updating email:", error.response || error.message);
+                });
 
-    const handleUpdateProfile = () => {
-        // Here you can implement the logic to update the user's profile
-        // For example, you can send a request to your backend API to update the email, username, and profile picture
-        console.log("Updated email:", email);
-        console.log("Updated username:", username);
-        console.log("Updated profile picture:", profilePicture);
+            }
+
+            // Update username
+            if (username) {
+                await axios.post(`https://localhost:8443/api/user/update-username/${userId}`, { username }, {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`, // Use the stored token
+                    },
+                }).catch(error => {
+                    console.error("Error updating email:", error.response || error.message);
+                });
+            }
+
+            console.log("Profile updated successfully.");
+            // Optionally, fetch the updated user profile here and update the context/state
+
+        } catch (error) {
+            console.error("Failed to update profile:", error);
+        }
     };
 
     return (

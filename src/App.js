@@ -2,7 +2,7 @@ import './App.css';
 import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Authentication from './pages/Authentication';
 import {AuthContext} from './context/auth_context/AuthProvider'
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
@@ -17,12 +17,12 @@ function App() {
 
     console.log(auth);
 
-    // useEffect(() => {
-    //     // If the user is not authenticated, navigate to the Authentication page
-    //     if (!auth || !auth.isAuthenticated && location.pathname !== '/ForgotPassword') {
-    //         navigate('/Authentication');
-    //     }
-    // }, [auth, navigate]);
+    useEffect(() => {
+        // If the user is not authenticated, navigate to the Authentication page
+        if (!auth || !auth.isAuthenticated && location.pathname !== '/ForgotPassword') {
+            navigate('/Authentication');
+        }
+    }, [auth, navigate]);
 
     return (
         <div className="App">
@@ -30,7 +30,7 @@ function App() {
                 <Route path="/Authentication" element={<Authentication/>}/>
                 <Route path="/ForgotPassword" element={<ForgotPassword/>}/>
                 <Route path="/ResetPassword" element={<ResetPassword/>}/>
-                {/*{auth && auth.isAuthenticated && (*/}
+                {auth && auth.isAuthenticated && (
                 <>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/Profile" element={<Profile/>}/>
@@ -38,7 +38,7 @@ function App() {
                     <Route path="/ResetPassword" element={<ResetPassword/>}/>
                     <Route path="/AdminDashboard" element={<AdminDashboard/>}/>
                 </>
-                {/*)}*/}
+                )}
             </Routes>
         </div>
     );
