@@ -18,7 +18,7 @@ const Authentication = () => {
     }
 
     return (
-        <div className="flex h-screen items-center justify-center bg-gradient-to-r from-blue-400 to-green-500">
+        <div className="flex h-screen items-center justify-center bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500">
             {isSignUp ? (
                 <SignUp verifyData={verifyData}/>
             ) : (

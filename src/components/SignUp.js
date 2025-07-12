@@ -61,28 +61,6 @@ const SignUp = ({verifyData, handleToggleForm}) => {
     };
 
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //
-    //     const allCriteriaMet = Object.values(passwordValidation).every(Boolean);
-    //
-    //     if (!allCriteriaMet) {
-    //         handleShowToast();
-    //         return;
-    //     }
-    //
-    //
-    //     setShowValidationError(false);
-    //     setShowToast(false);
-    //     const user = verifyData(username, password);
-    //     if (user) {
-    //         dispatch({ type: 'SIGN_UP', payload: { user: { ...user, email } } });
-    //         navigate('/');
-    //     } else {
-    //         console.log('Invalid data');
-    //     }
-    // };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
